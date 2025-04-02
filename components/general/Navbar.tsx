@@ -1,10 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-export async function Navbar() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+
+export function Navbar() {
+  const { getUser } = useKindeBrowserClient();
+  const user = getUser();
   return (
     <nav className="flex items-center  justify-between  py-6">
       {/* Left */}
