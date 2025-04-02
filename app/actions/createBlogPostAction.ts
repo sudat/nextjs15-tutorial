@@ -2,7 +2,7 @@
 import prisma from "@/app/utils/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-
+import { revalidatePath } from "next/cache";
 export async function createBlogPost(formData: FormData) {
   const { getUser } = await getKindeServerSession();
   const user = await getUser();
@@ -26,6 +26,8 @@ export async function createBlogPost(formData: FormData) {
       authorImage: user.picture as string,
     },
   });
+
+  revalidatePath("/");
 
   redirect("/dashboard");
 }
